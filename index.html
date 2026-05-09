@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PricePulse — Dion Kennedy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1f6e42;
+      --green-light: #eaf3ee;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: #e5e5e5;
+      --bg: #f9f9f7;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo { font-weight: 600; font-size: 1rem; }
+    .nav-logo span { color: var(--green); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 span { color: var(--green); }
+
+    .hero-desc {
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 0.75rem;
+    }
+
+    .hero-academic {
+      font-size: 0.78rem;
+      color: #999;
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    a.btn {
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 7px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    a.btn:hover { opacity: 0.8; }
+    .btn-dark { background: var(--text); color: #fff; }
+    .btn-light { background: var(--white); color: var(--text); border: 1px solid var(--border); }
+
+    /* DIVIDER */
+    hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* SECTIONS */
+    section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-intro { color: var(--muted); margin-bottom: 2.5rem; }
+
+    /* CARDS */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      font-size: 0.92rem;
+    }
+
+    .card p { color: var(--muted); font-size: 0.875rem; }
+
+    /* ARCHITECTURE */
+    .arch {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .arch-col {
+      padding: 1.5rem 1.2rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .arch-col:last-child { border-right: none; }
+
+    .arch-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+
+    .arch-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .arch-tech {
+      font-size: 0.72rem;
+      color: var(--green);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .arch-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+    /* STACK */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .stack-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .stack-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .stack-name { font-weight: 600; font-size: 0.875rem; }
+    .stack-role { font-size: 0.75rem; color: var(--muted); }
+
+    /* OBJECTIVES */
+    .obj-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .obj-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .obj-num {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .obj-text { font-size: 0.875rem; color: var(--muted); }
+    .obj-text strong { color: var(--text); font-weight: 500; }
+
+    /* LINKS */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    a.link-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem 1rem;
+      text-decoration: none;
+      color: var(--text);
+      text-align: center;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    a.link-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 2px 12px rgba(31,110,66,0.08);
+    }
+
+    .lc-icon { font-size: 1.6rem; }
+    .lc-name { font-weight: 600; font-size: 0.9rem; }
+    .lc-desc { font-size: 0.75rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 620px) {
+      nav ul { display: none; }
+      .card-grid { grid-template-columns: 1fr; }
+      .arch { grid-template-columns: 1fr 1fr; }
+      .arch-col:nth-child(2) { border-right: none; }
+      .arch-col:nth-child(3) { border-top: 1px solid var(--border); }
+      .arch-col:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+      .stack-grid { grid-template-columns: 1fr 1fr; }
+      .links-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Price<span>Pulse</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#objectives">Objectives</a></li>
+      <li><a href="#links">Links</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-tag">Final Year Project </p>
+    <h1>Price<span>Pulse</span></h1>
+    <p class="hero-desc">A full-stack web platform that tracks, compares and visualises supermarket prices across Irish retailers — making everyday inflation visible.</p>
+    <p class="hero-academic">Comparative &amp; Historical Price Analysis Platform for Supermarket Products Using Web Technologies</p>
+    <div class="btn-row">
+      <a href="#" class="btn btn-dark">GitHub Repo</a>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <h2>Fighting price creep with data.</h2>
+    <p class="section-intro">84% of Irish consumers are worried about the cost-of-living crisis. Yet most supermarket tools only show today's prices. PricePulse tracks prices over time, making the slow creep of inflation impossible to ignore.</p>
+    <div class="card-grid">
+      <div class="card">
+        <p class="card-title">The Problem</p>
+        <p>Consumers are finding the rise of the cost of living increasingly difficult to manage, with everyday essentials seeing steady price increases. Families with smaller budgets are hit hardest by these changes.</p>
+      </div>
+      <div class="card">
+        <p class="card-title">The Solution</p>
+        <p>PricePulse shows up-to-date prices on products from Dunnes Stores and SuperValu, and renders them as interactive historical charts so users can see exactly when prices change and when deals are happening.</p>
+      </div>
+      <div class="card">
+        <p class="card-title">Historical Data</p>
+        <p>PricePulse maintains a comprehensive database of historical prices and sales data, allowing users to analyze trends and make informed purchasing decisions.</p>
+      </div>
+      <div class="card">
+        <p class="card-title">Personalisation</p>
+        <p>Registered users can save a personal watchlist of frequently purchased items, turning PricePulse into a dashboard for keeping tabs on the price of their shopping basket.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture">
+    <p class="section-label">Architecture</p>
+    <h2>Decoupled, layer by layer.</h2>
+    <p class="section-intro">Each tier of the system operates independently through well-defined interfaces. Updates to one layer, such as patching a scraper, do not require changes anywhere else.</p>
+    <div class="arch">
+      <div class="arch-col">
+        <div class="arch-icon">🕷</div>
+        <div class="arch-name">Data Acquisition</div>
+        <div class="arch-tech">Python + Selenium</div>
+        <div class="arch-desc">Scrapes Dunnes and SuperValu daily via headless browser. Rate-limited and ethical.</div>
+      </div>
+      <div class="arch-col">
+        <div class="arch-icon">🗄</div>
+        <div class="arch-name">Database</div>
+        <div class="arch-tech">MongoDB</div>
+        <div class="arch-desc">Document-oriented store with priceHistory arrays. Schema-flexible for varied retailer data.</div>
+      </div>
+      <div class="arch-col">
+        <div class="arch-icon">⚙️</div>
+        <div class="arch-name">REST API</div>
+        <div class="arch-tech">Node.js + Express</div>
+        <div class="arch-desc">Serves products, search, auth and wishlist. JWT middleware on protected routes.</div>
+      </div>
+      <div class="arch-col">
+        <div class="arch-icon">📈</div>
+        <div class="arch-name">Frontend</div>
+        <div class="arch-tech">React + Chart.js</div>
+        <div class="arch-desc">Single Page Application with interactive price history charts and responsive design.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- STACK -->
+  <section id="stack">
+    <p class="section-label">Tech Stack</p>
+    <h2>Built with the right tools.</h2>
+    <p class="section-intro">Each technology was chosen for a specific reason, from Selenium's ability to bypass bot detection, to MongoDB's flexible schema for inconsistent retailer data.</p>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-icon">🐍</div>
+        <div><div class="stack-name">Python</div><div class="stack-role">Data Collection</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🤖</div>
+        <div><div class="stack-name">Selenium</div><div class="stack-role">Web Scraping</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🍃</div>
+        <div><div class="stack-name">MongoDB</div><div class="stack-role">Database</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🟩</div>
+        <div><div class="stack-name">Node.js</div><div class="stack-role">Server Runtime</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🚂</div>
+        <div><div class="stack-name">Express.js</div><div class="stack-role">REST API</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">⚛️</div>
+        <div><div class="stack-name">React</div><div class="stack-role">Frontend SPA</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">📊</div>
+        <div><div class="stack-name">Chart.js</div><div class="stack-role">Visualisation</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🔐</div>
+        <div><div class="stack-name">JWT</div><div class="stack-role">Authentication</div></div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🐙</div>
+        <div><div class="stack-name">GitHub</div><div class="stack-role">Version Control</div></div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- OBJECTIVES -->
+  <section id="objectives">
+    <p class="section-label">SMART Objectives</p>
+    <h2>Five goals. All delivered.</h2>
+    <p class="section-intro">The project was scoped around five measurable objectives set at the outset. All five were met at the level of core functionality.</p>
+    <div class="obj-list">
+      <div class="obj-item">
+        <span class="obj-num">01</span>
+        <p class="obj-text"><strong>Interactive web application</strong> — a searchable frontend enabling cross-retailer price comparison across Dunnes Stores and SuperValu.</p>
+      </div>
+      <div class="obj-item">
+        <span class="obj-num">02</span>
+        <p class="obj-text"><strong>Historical price tracking</strong> — an automated daily scraping pipeline writing timestamped records to MongoDB, visualised as interactive line charts.</p>
+      </div>
+      <div class="obj-item">
+        <span class="obj-num">03</span>
+        <p class="obj-text"><strong>Scalable database schema</strong> — a MongoDB document model with a curated cross-retailer product registry for reliable grouping and querying.</p>
+      </div>
+      <div class="obj-item">
+        <span class="obj-num">04</span>
+        <p class="obj-text"><strong>User accounts and wishlist</strong> — registered users can save products to a persistent personal watchlist with full price history access.</p>
+      </div>
+      <div class="obj-item">
+        <span class="obj-num">05</span>
+        <p class="obj-text"><strong>GDPR and ethical compliance</strong> — data minimisation, bcrypt password hashing, JWT sessions, and full ethics approval from the SETU School of Science and Computing.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- LINKS -->
+  <section id="links">
+    <p class="section-label">Project Links</p>
+    <h2>Explore the project.</h2>
+    <p class="section-intro">All deliverables for the Final Year Project showcase.</p>
+    <div class="links-grid">
+      <a href="#" class="link-card">
+        <span class="lc-icon">⬡</span>
+        <span class="lc-name">GitHub Repo</span>
+        <span class="lc-desc">Source Code</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Dion Kennedy &nbsp;·&nbsp; Student No.: 20101554 &nbsp;·&nbsp; BSc (Hons) Software Systems Development &nbsp;·&nbsp; SETU Waterford
+  </footer>
+
+</body>
+</html>
